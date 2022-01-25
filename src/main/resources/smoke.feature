@@ -7,6 +7,7 @@ Feature: Smoke
     Given User opens '<homePage>' page
 
 
+
     Examples:
       | homePage                |
       | https://www.lipsum.com/ |
