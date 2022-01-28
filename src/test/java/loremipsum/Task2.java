@@ -28,10 +28,20 @@ public class Task2 {
         driver.get("https://www.lipsum.com/");
     }
 
-    @Test
-    public void checkWordGeneration() {
-        int numberInput = 10;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    @DataProvider(name = "dataProvider")
+    public Object[][] dataProvider() {
+        return new Object[][]{
+                {10},
+                {1},
+                {0},
+                {5},
+                {20}
+        };
+    }
+
+    @Test(dataProvider = "dataProvider")
+    public void checkWordGeneration(int numberInput) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='words']"))));
         driver.findElement(xpath("//input[@id='words']")).click();
         WebElement element = driver.findElement(xpath("//input[@id='amount']"));
@@ -40,81 +50,14 @@ public class Task2 {
         }
         element.sendKeys(String.valueOf(numberInput));
         driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(60));
+        wait1.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='lipsum']/p[1]"))));
         int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().split(" ").length;
         assertEquals(wordsNumber, numberInput);
     }
 
-
-    @Test
-    public void checkWordGeneration1() {
-        int numberInput = 1;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='words']"))));
-        driver.findElement(xpath("//input[@id='words']")).click();
-        WebElement element = driver.findElement(xpath("//input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().split(" ").length;
-        assertEquals(wordsNumber, numberInput);
-    }
-    // Assert failed: bug on the site - two words instead of one
-
-    @Test
-    public void checkWordGeneration0() {
-        int numberInput = 0;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='words']"))));
-        driver.findElement(xpath("//input[@id='words']")).click();
-        WebElement element = driver.findElement(xpath("//input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().split(" ").length;
-        assertEquals(wordsNumber, numberInput);
-    }
-    // Assert failed: bug on the site - 5 words instead of zero
-
-    @Test
-    public void checkWordGeneration5() {
-        int numberInput = 5;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='words']"))));
-        driver.findElement(xpath("//input[@id='words']")).click();
-        WebElement element = driver.findElement(xpath("//input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().split(" ").length;
-        assertEquals(wordsNumber, numberInput);
-    }
-
-    @Test
-    public void checkWordGeneration20() {
-        int numberInput = 20;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='words']"))));
-        driver.findElement(xpath("//input[@id='words']")).click();
-        WebElement element = driver.findElement(xpath("/ /input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().split(" ").length;
-        assertEquals(wordsNumber, numberInput);
-    }
-
-
-    @Test
-    public void checkByteGeneration() {
-        int numberInput = 10;
+    @Test(dataProvider = "dataProvider")
+    public void checkByteGeneration(int numberInput) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='bytes']"))));
         driver.findElement(xpath("//input[@id='bytes']")).click();
@@ -124,59 +67,12 @@ public class Task2 {
         }
         element.sendKeys(String.valueOf(numberInput));
         driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait1.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='lipsum']/p[1]"))));
         int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().length();
         assertEquals(wordsNumber, numberInput);
     }
 
-    @Test
-    public void checkByteGeneration0() {
-        int numberInput = 0;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='bytes']"))));
-        driver.findElement(xpath("//input[@id='bytes']")).click();
-        WebElement element = driver.findElement(xpath("//input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().length();
-        assertEquals(wordsNumber, numberInput);
-    }
-    // Assert failed: bug on the site - 5 characters instead of zero
-
-    @Test
-    public void checkByteGeneration1() {
-        int numberInput = 1;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='bytes']"))));
-        driver.findElement(xpath("//input[@id='bytes']")).click();
-        WebElement element = driver.findElement(xpath("//input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().length();
-        assertEquals(wordsNumber, numberInput);
-    }
-    // Assert failed: bug on the site - 3 characters instead of zero
-
-    @Test
-    public void checkByteGeneration5() {
-        int numberInput = 5;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//input[@id='bytes']"))));
-        driver.findElement(xpath("//input[@id='bytes']")).click();
-        WebElement element = driver.findElement(xpath("//td[@rowspan='2']/input[@id='amount']"));
-        if (element.getAttribute("value") != "") {
-            element.clear();
-        }
-        element.sendKeys(String.valueOf(numberInput));
-        driver.findElement(xpath("//input[@value='Generate Lorem Ipsum']")).click();
-        int wordsNumber = driver.findElement(xpath("//div[@id='lipsum']/p[1]")).getText().length();
-        assertEquals(wordsNumber, numberInput);
-    }
 
     @Test
     public void checkLoremInputStart() {
@@ -207,9 +103,13 @@ public class Task2 {
         assertTrue(loremAverage / 10 >= 2);
     }
 
+//    @AfterMethod
+//    public void closeBrowser() {
+//        driver.close();
+//    }
 
-        @AfterMethod
-        public void closeBrowser () {
-            driver.quit();
-        }
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
     }
+}

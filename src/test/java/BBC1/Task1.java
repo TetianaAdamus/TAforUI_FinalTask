@@ -4,14 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Task1 {
@@ -30,17 +33,41 @@ public class Task1 {
     }
 
     @Test
-    public void choseRussianLanguage() {
-        WebElement element = driver.findElement(By.xpath("//a[contains(@href,'http://ru.lipsum.com')]"));
-        element.click();
+    public void checkHeadlineArticleTitle() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        assertTrue(driver.findElement(By.xpath("//div[@id='Panes']/div[1]")).getText().contains("рыба"));
+        WebElement element = driver.findElement(By.xpath("//nav[@role='navigation'] //a[contains(text(), 'News')]"));
+        element.click();
+        assertEquals(driver.findElement(By.xpath("//h3[@class='gs-c-promo-heading__title gel-paragon-bold nw-o-link-split__text']")).getText(), "Downing Street parties report thrown into doubt");
+    }
+
+    @Test
+    public void checkSecondaryArticlesTitles() {
+        WebElement element = driver.findElement(By.xpath("//nav[@role='navigation'] //a[contains(text(), 'News')]"));
+        element.click();
+        List<WebElement> actualTitleList = driver.findElements(By.xpath("//h3[@class='gs-c-promo-heading__title gel-pica-bold nw-o-link-split__text']"));
+        List<String> actualListString = new ArrayList<>();
+        for (WebElement elem: actualTitleList) {
+            actualListString.add(elem.getText());
+        }
+        List<String> expectedTitleList = new ArrayList<>();
+        expectedTitleList.add("Doctors among those begging for food in Tigray");
+        expectedTitleList.add("US ignored Russia's security concerns, Putin says");
+        expectedTitleList.add("Decoding Putin's next move on Ukraine");
+        expectedTitleList.add("Japanese doctor dies after 11-hour shooting siege");
+        expectedTitleList.add("Netflix to face Queen's Gambit defamation case");
+        expectedTitleList.add("Bridge collapse in US city injures 10");
+        expectedTitleList.add("Former SS member speaks of shame over Nazi past");
+        expectedTitleList.add("Doubts over timing of Djokovic Covid test");
+        expectedTitleList.add("Chicago trains drive through fire");
+        expectedTitleList.add("Bankers' rate 'rigging' not criminal, says US");
+        for (String title: expectedTitleList){
+        assertTrue(actualListString.contains(title));
+        }
     }
 
 
 
-
-    @AfterMethod
+    @AfterTest
     public void closeBrowser() {
         driver.quit();
     }
