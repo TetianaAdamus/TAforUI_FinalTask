@@ -46,7 +46,7 @@ public class Task1 {
 
 
     @AfterTest
-    public void closeBrowser() {
+    public void tearDown() {
         driver.quit();
     }
 }
