@@ -1,4 +1,4 @@
-package loremipsum.pagefactory.pages;
+package loremipsum.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +24,9 @@ public class GeneratedPage extends BasePage {
 
     public String getRussianFirstParagraph(){
         return russianFirstParagraph.getText();
+    }
+    public WebElement getRussianFirstParagraphElement(){
+        return russianFirstParagraph;
     }
 
     public String getFirstParagraphText(){

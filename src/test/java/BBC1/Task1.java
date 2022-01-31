@@ -5,10 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +20,12 @@ public class Task1 {
     @BeforeTest
     public void profileSetUp() {
         chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @BeforeMethod
     public void testsSetUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.get("https://www.bbc.com/");
     }
 
@@ -77,7 +74,7 @@ public class Task1 {
     }
 
 
-    @AfterMethod
+    @AfterTest
     public void tearDown() {
         driver.quit();
     }

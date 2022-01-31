@@ -1,15 +1,14 @@
 package BBC1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -22,12 +21,12 @@ public class Task2 {
     @BeforeTest
     public void profileSetUp() {
         chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @BeforeMethod
     public void testsSetUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.get("https://www.bbc.com/");
     }
 
@@ -37,9 +36,12 @@ public class Task2 {
         driver.findElement(By.xpath("//ul[@class='gs-o-list-ui--top-no-border nw-c-nav__wide-sections']//a[@href='/news/coronavirus'] ")).click();
         driver.findElement(By.xpath("//li[contains(@class,'gs-o-list-ui__item--flush gel-long-primer')]//span[text()='Your Coronavirus Stories']")).click();
         driver.findElement(By.xpath("//a[@href='/news/52143212']")).click();
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         if (driver.findElements(By.xpath("//button[@aria-label='Close']")).size()>0){
             driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
         }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Name']")));
         driver.findElement(By.xpath("//input[@placeholder='Name']")).sendKeys("Tania");
         driver.findElement(By.xpath("//input[@placeholder='Email address']")).sendKeys("tania.adamus@com");
         driver.findElement(By.xpath("//input[@placeholder='Contact number']")).sendKeys("123456789");
@@ -47,13 +49,13 @@ public class Task2 {
         driver.findElement(By.xpath("//input[@placeholder='Age']")).sendKeys("20");
         driver.findElement(By.xpath("//input[@type='checkbox']")).click();
         driver.findElement(By.xpath("//button[@class='button']")).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='input-error-message']"))));
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='input-error-message']")));
         assertEquals(driver.findElement(By.xpath("//div[@class='input-error-message']")).getText().trim(), "can't be blank");
     }
 
 
-    @AfterMethod
+    @AfterTest
     public void tearDown() {
         driver.quit();
     }
