@@ -1,6 +1,7 @@
 package loremipsum.pages;
 
 import org.openqa.selenium.WebDriver;
+import utils.Waiter;
 
 public class BusinessLogicLayer extends BasePage {
     public final HomePage homePage = new HomePage(driver);
@@ -45,12 +46,12 @@ public class BusinessLogicLayer extends BasePage {
         homePage.clearCheckbox();
     }
 
-    public int checkTextContainsWord(String word, String url, long timeToWait) {
+    public int checkTextContainsWord(String word, String url) {
         int loremAverage = 0;
         for (int i = 0; i < 10; i++) {
-            waitForPageLoadComplete(timeToWait);
+            Waiter.waitForPageLoadComplete();
             homePage.generationButtonClick();
-            waitForPageLoadComplete(timeToWait);
+            Waiter.waitForPageLoadComplete();
             loremAverage = loremAverage +generatedPage.paragraphsContainWord(word);
             driver.navigate().to(url);
         }

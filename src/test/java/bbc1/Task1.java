@@ -1,4 +1,4 @@
-package BBC1;
+package bbc1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -32,7 +32,7 @@ public class Task1 {
     @Test
     public void checkHeadlineArticleTitle() {
        driver.findElement(By.xpath("//nav[@role='navigation'] //a[contains(text(), 'News')]")).click();
-        assertEquals(driver.findElement(By.xpath("//h3[@class='gs-c-promo-heading__title gel-paragon-bold nw-o-link-split__text']")).getText(), "Downing Street parties report thrown into doubt");
+        assertEquals(driver.findElement(By.xpath("//h3[@class='gs-c-promo-heading__title gel-paragon-bold nw-o-link-split__text']")).getText().trim(), "Ukraine leader praises West's response on Russia");
     }
 
     @Test
@@ -44,16 +44,16 @@ public class Task1 {
             actualListString.add(elem.getText());
         }
         List<String> expectedTitleList = new ArrayList<>();
-        expectedTitleList.add("Doctors among those begging for food in Tigray");
-        expectedTitleList.add("US ignored Russia's security concerns, Putin says");
-        expectedTitleList.add("Decoding Putin's next move on Ukraine");
-        expectedTitleList.add("Japanese doctor dies after 11-hour shooting siege");
-        expectedTitleList.add("Netflix to face Queen's Gambit defamation case");
-        expectedTitleList.add("Bridge collapse in US city injures 10");
-        expectedTitleList.add("Former SS member speaks of shame over Nazi past");
-        expectedTitleList.add("Doubts over timing of Djokovic Covid test");
-        expectedTitleList.add("Chicago trains drive through fire");
-        expectedTitleList.add("Bankers' rate 'rigging' not criminal, says US");
+        expectedTitleList.add("Ukraine leader praises West's response on Russia");
+        expectedTitleList.add("NFL legend Brady confirms retirement");
+        expectedTitleList.add("Amnesty report calls Israel an apartheid state");
+        expectedTitleList.add("Ros Atkins on... the UK government parties report");
+        expectedTitleList.add("Johnson focused on saving own skin - UK opposition");
+        expectedTitleList.add("Whoopi Goldberg slammed for Holocaust remarks");
+        expectedTitleList.add("Denmark lifts almost all Covid restrictions");
+        expectedTitleList.add("NZ to allow in pregnant reporter helped by Taliban");
+        expectedTitleList.add("US locks down all federal prisons after gang fight");
+        expectedTitleList.add("NZ to allow in pregnant reporter helped by Taliban");
         for (String title : expectedTitleList) {
             assertTrue(actualListString.contains(title));
         }

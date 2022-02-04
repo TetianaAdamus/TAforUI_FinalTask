@@ -1,27 +1,32 @@
-package loremipsum.tests;
+package bbc1.tests;
 
-
-import loremipsum.pages.BusinessLogicLayer;
+import bbc1.pages.BusinessLogicLayer;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import utils.DriverSingleton;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
+
 public class BaseTest {
     WebDriver driver;
     public BusinessLogicLayer businessLogicLayer;
-    public static final String LIPSUM_URL = "https://www.lipsum.com/";
+
+    public static final String BBC_URL = "https://www.bbc.com/";
 
     @BeforeTest
     public void driverSetUp() {
+        chromedriver().setup();
         driver = DriverSingleton.getDriver();
-        businessLogicLayer = getBusinessLogicLayer();
+        driver.manage().window().maximize();
+        businessLogicLayer = new BusinessLogicLayer(driver);
     }
+
 
     @BeforeMethod
     public void testsSetUp(){
-        driver.get(LIPSUM_URL);
+        driver.get(BBC_URL);
     }
 
 
@@ -29,8 +34,5 @@ public class BaseTest {
     public void tearDown() {
         driver.quit();
     }
-
-    public BusinessLogicLayer getBusinessLogicLayer() {
-        return new BusinessLogicLayer(driver);
-    }
 }
+
