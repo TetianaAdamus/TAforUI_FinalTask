@@ -1,25 +1,28 @@
 package bbc1.tests;
 
-import bbc1.pages.BusinessLogicLayer;
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-public class NewsTests extends BaseTest{
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-    public final String HEAD_ARTICLE_TITLE = "Islamic State leader killed in Syria raid, US says";
+public class NewsTests extends BaseTest {
 
     @Test
-    public void checkHeadArticleTitle(){
-        assertEquals(businessLogicLayer.getHeadArticleTitle(), HEAD_ARTICLE_TITLE);
-
+    public void checkHeadArticleTitle() {
+        assertEquals(businessLogicLayer.getHeadArticleTitle(), "Truss in tense Moscow talks as UK pushes diplomacy");
     }
 
-//    @Test
-//    public void checkSecondaryArticlesTitles() {
-//        businessLogicLayer.closeNewsPopup();
-//        for (String title : businessLogicLayer.getExpectedTitles()) {
-//            assertTrue(businessLogicLayer.getActualTitles().contains(title));
-//        }
-//    }
+    @Test
+    public void checkSecondaryArticlesTitles() {
+        businessLogicLayer.closeNewsPopup();
+        for (String title : businessLogicLayer.getExpectedTitles()) {
+            assertTrue(businessLogicLayer.getActualTitles().contains(title));
+        }
+    }
+
+    @Test
+    public void checkSearchField() {
+        assertTrue(businessLogicLayer.searchByCategory());
+    }
 
 }

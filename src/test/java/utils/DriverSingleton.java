@@ -18,4 +18,12 @@ public class DriverSingleton {
         }
         return driver;
     }
+
+    public static void openPage(String url){
+        driver.get(url);
+    }
+
+    public static void tearDown() {
+        driver.quit();
+    }
 }

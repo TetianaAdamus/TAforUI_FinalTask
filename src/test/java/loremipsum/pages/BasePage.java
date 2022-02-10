@@ -1,14 +1,12 @@
 package loremipsum.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import utils.DriverSingleton;
 
 public class BasePage {
-    WebDriver driver;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public BasePage() {
+        PageFactory.initElements(DriverSingleton.getDriver(), this);
     }
 
 

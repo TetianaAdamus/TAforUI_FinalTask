@@ -1,6 +1,5 @@
 package loremipsum.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,10 +16,6 @@ public class GeneratedPage extends BasePage {
 
     @FindBy(xpath = "//div[@id='lipsum']/p")
     List<WebElement> allParagraphs;
-
-    public GeneratedPage(WebDriver driver) {
-        super(driver);
-    }
 
     public String getRussianFirstParagraph(){
         return russianFirstParagraph.getText();

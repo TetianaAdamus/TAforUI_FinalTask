@@ -1,17 +1,17 @@
-package loremipsum.pages;
+package loremipsum.manager;
 
-import org.openqa.selenium.WebDriver;
+import loremipsum.pages.GeneratedPage;
+import loremipsum.pages.HomePage;
+import utils.DriverSingleton;
 import utils.Waiter;
 
-public class BusinessLogicLayer extends BasePage {
-    public final HomePage homePage = new HomePage(driver);
-    public final GeneratedPage generatedPage = new GeneratedPage(driver);
+public class BusinessLogicLayer {
 
-    public BusinessLogicLayer(WebDriver driver) {
-        super(driver);
-    }
+    public final HomePage homePage = new HomePage();
+    public final GeneratedPage generatedPage = new GeneratedPage();
 
-    public void chooseLanguge() {
+
+    public void chooseLanguage() {
         homePage.changeLanguage();
     }
 
@@ -29,9 +29,9 @@ public class BusinessLogicLayer extends BasePage {
 
 
     public void textGeneration(String value, int amountInput) {
-        homePage.radioClick(value);
-        homePage.putAmount(amountInput);
-        homePage.generationButtonClick();
+        homePage.radioClick(value)
+                .putAmount(amountInput)
+                .generationButtonClick();
     }
 
     public int generationTextLength() {
@@ -42,8 +42,9 @@ public class BusinessLogicLayer extends BasePage {
         return generatedPage.bytesInGeneratedText();
     }
 
-    public void checkboxClear(){
+    public BusinessLogicLayer checkboxClear() {
         homePage.clearCheckbox();
+        return new BusinessLogicLayer();
     }
 
     public int checkTextContainsWord(String word, String url) {
@@ -52,8 +53,8 @@ public class BusinessLogicLayer extends BasePage {
             Waiter.waitForPageLoadComplete();
             homePage.generationButtonClick();
             Waiter.waitForPageLoadComplete();
-            loremAverage = loremAverage +generatedPage.paragraphsContainWord(word);
-            driver.navigate().to(url);
+            loremAverage = loremAverage + generatedPage.paragraphsContainWord(word);
+            DriverSingleton.getDriver().navigate().to(url);
         }
         return loremAverage / 10;
     }

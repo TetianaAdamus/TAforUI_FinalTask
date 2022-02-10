@@ -1,34 +1,35 @@
 package bbc1.pages;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsPage extends BasePage{
+public class NewsPage extends BasePage {
+
     @FindBy(xpath = "//h3[@class='gs-c-promo-heading__title gel-paragon-bold nw-o-link-split__text']")
     WebElement headArticle;
 
     @FindBy(xpath = "//h3[@class='gs-c-promo-heading__title gel-pica-bold nw-o-link-split__text']")
     List<WebElement> actualTitleElementsList;
 
-    @FindBy(xpath = "//button[@aria-label='Close']")
-    WebElement popUpElement;
+    @FindBy(xpath = "//a[contains(@class,'gs-c-section-link gs-c-section-link--truncate')]")
+    WebElement category;
 
-    @FindBy(xpath = "//button[@aria-label='Close']")
-    List <WebElement> popUpElementsList;
+    @FindBy(xpath = "//input[@id='orb-search-q']")
+    WebElement searchField;
 
-    public NewsPage(WebDriver driver) {
-        super(driver);
-    }
+    @FindBy(xpath = "//ul[@class='gs-o-list-ui--top-no-border nw-c-nav__wide-sections']//a[@href='/news/coronavirus']")
+    WebElement coronavirusItem;
 
-    public String headArticleTitle(){
+
+    public String headArticleTitle() {
         return headArticle.getText().trim();
     }
 
-    public List<String> actualTitlesList(){
+    public List<String> actualTitlesList() {
         List<String> actualTitleList = new ArrayList<>();
         for (WebElement elem : actualTitleElementsList) {
             actualTitleList.add(elem.getText());
@@ -36,24 +37,35 @@ public class NewsPage extends BasePage{
         return actualTitleList;
     }
 
-    public List<String> expectedTitlesList(){
+    public List<String> expectedTitlesList() {
         List<String> expectedTitleList = new ArrayList<>();
-        expectedTitleList.add("Ukraine leader praises West's response on Russia");
-        expectedTitleList.add("NFL legend Brady confirms retirement");
-        expectedTitleList.add("Amnesty report calls Israel an apartheid state");
-        expectedTitleList.add("Ros Atkins on... the UK government parties report");
-        expectedTitleList.add("Denmark lifts almost all Covid restrictions");
-        expectedTitleList.add("Wind forces plane to abort landing at London airport");
-        expectedTitleList.add("NZ to allow in pregnant reporter helped by Taliban");
-        expectedTitleList.add("US locks down all federal prisons after gang fight");
-        expectedTitleList.add("Wordle inventor 'overwhelmed' as game is sold");
-        expectedTitleList.add("US locks down all federal prisons after gang fight");
+        expectedTitleList.add("Russia begins military drills with Belarus");
+        expectedTitleList.add("US consumer prices rise at fastest rate since 1982");
+        expectedTitleList.add("US-born Chinese skater pilloried after Games falls");
+        expectedTitleList.add("Winter Olympics hit by complaints from athletes");
+        expectedTitleList.add("Germany probes millionaire's alleged 417km/h drive");
+        expectedTitleList.add("Australian parliament apologises to rape accuser");
+        expectedTitleList.add("Afghanistan: Watching the destruction of a nation?");
+        expectedTitleList.add("China encroaching along Nepal border - report");
+        expectedTitleList.add("Severe hunger threatens 13m in Horn of Africa - UN");
+        expectedTitleList.add("China encroaching along Nepal border - report");
+        expectedTitleList.add("Severe hunger threatens 13m in Horn of Africa - UN");
+        expectedTitleList.add("Blood pressure warning over paracetamol use");
         return expectedTitleList;
     }
 
-//    public void closePopup(){
-//            Wait.waitElementIsClickable(popUpElement);
-//            popUpElement.click();
-//    }
+
+    public String getCategoryText() {
+        return category.getText();
+    }
+
+    public void searchByWord(String word) {
+        searchField.sendKeys(word, Keys.ENTER);
+    }
+
+    public CoronavirusPage goToCoronavirusPage() {
+        coronavirusItem.click();
+        return new CoronavirusPage();
+    }
 
 }

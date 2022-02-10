@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-import loremipsum.pages.BusinessLogicLayer;
 import utils.Waiter;
 
 public class GenerationTests extends BaseTest {
@@ -18,10 +17,9 @@ public class GenerationTests extends BaseTest {
     public static final String SEARCH_WORD = "lorem";
 
 
-
     @Test
     public void checkChangedText() {
-        businessLogicLayer.chooseLanguge();
+        businessLogicLayer.chooseLanguage();
         Waiter.waitVisibilityOfElement(businessLogicLayer.generatedPage.getRussianFirstParagraphElement());
         assertTrue(businessLogicLayer.getFirstParagraph().contains(WORD_TO_CHECK));
     }
@@ -43,6 +41,7 @@ public class GenerationTests extends BaseTest {
                 {20}
         };
     }
+
     @Test(dataProvider = "dataProvider")
     public void checkWordGeneration(int numberInput) {
         businessLogicLayer.textGeneration(RADIO_OPTION_WORD, numberInput);
@@ -58,15 +57,14 @@ public class GenerationTests extends BaseTest {
 
     @Test
     public void checkGenerationTextBeginning() {
-        businessLogicLayer.checkboxClear();
-        businessLogicLayer.clickGenerationButton();
+        businessLogicLayer.checkboxClear().clickGenerationButton();
         Waiter.waitForPageLoadComplete();
         assertFalse(businessLogicLayer.getFirstParagraphStarts(WORDS_START));
     }
 
     @Test
-    public void checkWordInGeneratedText(){
-        assertTrue(businessLogicLayer.checkTextContainsWord(SEARCH_WORD, LIPSUM_URL)>=2);
+    public void checkWordInGeneratedText() {
+        assertTrue(businessLogicLayer.checkTextContainsWord(SEARCH_WORD, LIPSUM_URL) >= 2);
     }
 
 }
