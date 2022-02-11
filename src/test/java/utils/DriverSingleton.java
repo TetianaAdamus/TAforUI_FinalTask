@@ -24,6 +24,7 @@ public class DriverSingleton {
     }
 
     public static void tearDown() {
+        if (driver !=null)
         driver.quit();
     }
 }
