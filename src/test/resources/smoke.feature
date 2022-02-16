@@ -4,10 +4,11 @@ Feature: Smoke
   So that I can be sure that site works correctly
 
   Scenario Outline: Check add product to wishlist
-    Given User opens '<homePage>' page
-
+    Given User opens Home page
 
 
     Examples:
-      | homePage                |
-      | https://www.lipsum.com/ |
+      |  |
+
+
+
