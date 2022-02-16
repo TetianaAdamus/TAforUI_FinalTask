@@ -27,6 +27,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//input[@type='radio']")
     List<WebElement> radioButtonList;
 
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
+
 
     public void openHomePage() {
         DriverSingleton.openPage(homePageUrl);

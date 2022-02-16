@@ -18,6 +18,10 @@ public class GeneratedPage extends BasePage {
     @FindBy(xpath = "//div[@id='lipsum']/p")
     List<WebElement> allParagraphs;
 
+    public GeneratedPage(WebDriver driver) {
+        super(driver);
+    }
+
 
     public String getRussianFirstParagraph(){
         return russianFirstParagraph.getText();

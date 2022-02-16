@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import util.Waiter;
 
 public class BBL extends BasePage {
+    public BBL(WebDriver driver) {
+        super(driver);
+    }
 
 
 //    public void chooseLanguge() {
