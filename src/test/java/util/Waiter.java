@@ -21,7 +21,7 @@ public class Waiter {
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 
-    public void waitVisibilityOfElement(WebElement element) {
+    public static void waitVisibilityOfElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
         wait.until(ExpectedConditions.visibilityOf(element));
     }

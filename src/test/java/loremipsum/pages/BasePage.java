@@ -5,10 +5,8 @@ import org.openqa.selenium.support.PageFactory;
 import util.DriverSingleton;
 
 public class BasePage {
-    WebDriver driver;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
+    public BasePage() {
         PageFactory.initElements(DriverSingleton.getDriver(), this);
     }
 

@@ -3,6 +3,7 @@ package loremipsum.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import util.Waiter;
 
 import java.util.List;
 
@@ -18,16 +19,14 @@ public class GeneratedPage extends BasePage {
     @FindBy(xpath = "//div[@id='lipsum']/p")
     List<WebElement> allParagraphs;
 
-    public GeneratedPage(WebDriver driver) {
-        super(driver);
-    }
-
 
     public String getRussianFirstParagraph(){
+        Waiter.waitVisibilityOfElement(russianFirstParagraph);
         return russianFirstParagraph.getText();
     }
 
     public String getFirstParagraphText(){
+        Waiter.waitVisibilityOfElement(firstParagraph);
         return firstParagraph.getText();
     }
 
